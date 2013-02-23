@@ -1,9 +1,8 @@
 # SPOILER ALERT!
 
-If you've ever wanted to have spoilers on a website, but, make them only visible on mouse over,
-this might do what you'd like!
+Do you ever have spoilers and wish you could have them on your page in a way that wasn't annoying? With spoiler alert you can! Hide any text a bit of blurriness. Clicking reveals. Mouseover gives you a taste.
 
-Should work on images and text. I have no idea if IE is supported, but, shouldn't be hard if it isn't
+Should work on images and text. Works fine on iPhone. I have no idea if IE is supported, but, shouldn't be hard if it isn't.
 
 ## Demo
 
