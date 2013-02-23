@@ -15,11 +15,13 @@ $(function() {
 
     var applyShadow = function() {
       var radius = 10 - step
-      $spoiler.css('filter', 'blur('+radius+'px)')
-      $spoiler.css('-webkit-filter', 'blur('+radius+'px)')
-      $spoiler.css('-moz-filter', 'blur('+radius+'px)')
-      $spoiler.css('-o-filter', 'blur('+radius+'px)')
-      $spoiler.css('-ms-filter', 'blur('+radius+'px)')
+      var blur = null
+      if (radius > 0) blur = "blur(" + radius + "px)"
+      $spoiler.css('filter', blur)
+      $spoiler.css('-webkit-filter', blur)
+      $spoiler.css('-moz-filter', blur)
+      $spoiler.css('-o-filter', blur)
+      $spoiler.css('-ms-filter', blur)
     }
 
     var reveal = function() {
