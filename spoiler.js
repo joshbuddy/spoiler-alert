@@ -13,13 +13,19 @@ $(function() {
       }
     }
 
-    var applyShadow = function() {
+    var applyBlur = function() {
       var radius = 10 - step
-      $spoiler.css('filter', 'blur('+radius+'px)')
-      $spoiler.css('-webkit-filter', 'blur('+radius+'px)')
-      $spoiler.css('-moz-filter', 'blur('+radius+'px)')
-      $spoiler.css('-o-filter', 'blur('+radius+'px)')
-      $spoiler.css('-ms-filter', 'blur('+radius+'px)')
+      var blurValue = 'blur('+radius+'px);'
+      console.log(blurValue)
+      if (navigator.userAgent.toLowerCase().indexOf('firefox') != -1) {
+        $spoiler.css('filter', 'url(./blur.svg#blur'+radius+')')
+      } else {
+        $spoiler.css('filter', blurValue)
+        $spoiler.css('-webkit-filter', 'blur('+radius+'px)')
+        $spoiler.css('-moz-filter', 'blur('+radius+'px)')
+        $spoiler.css('-o-filter', 'blur('+radius+'px)')
+        $spoiler.css('-ms-filter', 'blur('+radius+'px)')
+      }
     }
 
     var reveal = function() {
@@ -27,7 +33,7 @@ $(function() {
       var finalStep = $spoiler.data('state') == 'shrouded' ? 6 : 10
       if (step < finalStep) {
         step++
-        applyShadow()
+        applyBlur()
         animationTimer = setTimeout(reveal, 10)
       }
     }
@@ -36,11 +42,11 @@ $(function() {
       cancelTimer()
       if (step > 0) {
         step--
-        applyShadow()
+        applyBlur()
         animationTimer = setTimeout(shroud, 10)
       }
     }
-    applyShadow()
+    applyBlur()
 
     $(this).on('mouseover', function(e) {
       if ($spoiler.data('state') == 'shrouded') reveal()
