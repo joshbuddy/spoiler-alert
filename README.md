@@ -7,4 +7,4 @@ Should work on images and text. I have no idea if IE is supported, but, shouldn'
 
 ## Demo
 
-Take a look at ... to see this in action!
+Take a look at [this](http://htmlpreview.github.com/?https://github.com/joshbuddy/spoiler-alert/blob/master/test.html) to see it in action!
