@@ -15,16 +15,16 @@ $(function() {
 
     var applyBlur = function() {
       var radius = 10 - step
-      var blurValue = 'blur('+radius+'px);'
-      console.log(blurValue)
       if (navigator.userAgent.toLowerCase().indexOf('firefox') != -1) {
-        $spoiler.css('filter', 'url(./blur.svg#blur'+radius+')')
+        var filterValue = radius > 0 ? 'url(./blur.svg#blur'+radius+')' : ''
+        $spoiler.css('filter', filterValue)
       } else {
-        $spoiler.css('filter', blurValue)
-        $spoiler.css('-webkit-filter', 'blur('+radius+'px)')
-        $spoiler.css('-moz-filter', 'blur('+radius+'px)')
-        $spoiler.css('-o-filter', 'blur('+radius+'px)')
-        $spoiler.css('-ms-filter', 'blur('+radius+'px)')
+        var filterValue = radius > 0 ? 'blur('+radius+'px)' : ''
+        $spoiler.css('filter', filterValue)
+        $spoiler.css('-webkit-filter', filterValue)
+        $spoiler.css('-moz-filter', filterValue)
+        $spoiler.css('-o-filter', filterValue)
+        $spoiler.css('-ms-filter', filterValue)
       }
     }
 
