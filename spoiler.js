@@ -24,7 +24,7 @@
           var filterValue = radius > 0 ? 'url(./blur.svg#blur'+radius+')' : ''
           $spoiler.css('filter', filterValue)
         } else if($.browser.msie) {
-          var filterValue = radius > 0 ? 'progid:DXImageTransform.Microsoft.Blur(pixelRadius='+radius')' : ''
+          var filterValue = radius > 0 ? 'progid:DXImageTransform.Microsoft.Blur(pixelRadius='+radius+')' : ''
           $spoiler.css('filter', filterValue)
         } else {
           var filterValue = radius > 0 ? 'blur('+radius+'px)' : ''
