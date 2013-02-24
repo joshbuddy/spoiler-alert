@@ -1,8 +1,8 @@
 (function( $ ) {
   $.fn.spoilerAlert = function(opts) {
     if (!opts) opts = {}
-    var maxBlur = opts.maxBlur || 10
-    var partialBlur = opts.partialBlur || 6
+    var maxBlur = opts.max || 10
+    var partialBlur = opts.partial || 6
 
     $(this).each(function() {
       var $spoiler = $(this)
@@ -35,7 +35,7 @@
 
       var reveal = function() {
         cancelTimer()
-        var finalStep = $spoiler.data('state') == 'shrouded' ? partialBlur : maxBlur
+        var finalStep = $spoiler.data('state') == 'shrouded' ? (maxBlur - partialBlur) : maxBlur
         if (step < finalStep) {
           step++
           applyBlur()
