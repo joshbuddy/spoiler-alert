@@ -4,6 +4,12 @@
     var maxBlur = opts.max || 10
     var partialBlur = opts.partial || 6
 
+    var browser = {}
+    browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
+    browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+    browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+    browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+
     $(this).each(function() {
       var $spoiler = $(this)
       $spoiler.data('state', 'shrouded')
@@ -20,10 +26,10 @@
 
       var applyBlur = function() {
         var radius = maxBlur - step
-        if ($.browser.mozilla) {
+        if (browser.mozilla) {
           var filterValue = radius > 0 ? 'url(./blur.svg#blur'+radius+')' : ''
           $spoiler.css('filter', filterValue)
-        } else if($.browser.msie) {
+        } else if (browser.msie) {
           var filterValue = radius > 0 ? 'progid:DXImageTransform.Microsoft.Blur(pixelRadius='+radius+')' : ''
           $spoiler.css('filter', filterValue)
         } else {
