@@ -26,7 +26,9 @@
 
       var applyBlur = function() {
         var radius = maxBlur - step
-        if (browser.mozilla || browser.msie) {
+        if (browser.msie) {
+          alert("WARNING, this site contains spoilers!")
+        } else if (browser.mozilla) {
           var filterValue = radius > 0 ? 'url(./blur.svg#blur'+radius+')' : ''
           $spoiler.css('filter', filterValue)
         } else {
