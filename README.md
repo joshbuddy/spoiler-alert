@@ -22,7 +22,7 @@ Have fun! Play with it!
 
 ## Demo
 
-Take a look at [this](http://plainspace.github.com/spoiler-alert/) to see it in action!
+Take a look at [this](http://joshbuddy.github.com/spoiler-alert/) to see it in action!
 
 ## Tested browsers
 
