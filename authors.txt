@@ -2,6 +2,7 @@ Spoiler Alert! contributors:
 
 Joshua Hull
 Jared Volpe
+Dwayne Charrington - https://github.com/Vheissu
 
 Spoiler Alert! is used under the MIT license, available here: 
 https://github.com/joshbuddy/spoiler-alert/MIT-LICENSE.txt.
