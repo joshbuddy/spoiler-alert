@@ -29,7 +29,7 @@
         if (browser.msie) {
           alert("WARNING, this site contains spoilers!")
         } else if (browser.mozilla) {
-          var filterValue = radius > 0 ? 'url(./blur.svg#blur'+radius+')' : ''
+          var filterValue = radius > 0 ? "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='blur'><feGaussianBlur stdDeviation='" + radius + "' /></filter></svg>#blur\")" : ''
           $spoiler.css('filter', filterValue)
         } else {
           var filterValue = radius > 0 ? 'blur('+radius+'px)' : ''
