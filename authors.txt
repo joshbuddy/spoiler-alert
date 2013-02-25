@@ -1,0 +1,7 @@
+Spoiler Alert! contributors:
+
+Joshua Hull
+Jared Volpe
+
+Some portions of OpenLayers are used under the MIT license, availabie here: 
+https://github.com/joshbuddy/spoiler-alert/MIT-LICENSE.txt.

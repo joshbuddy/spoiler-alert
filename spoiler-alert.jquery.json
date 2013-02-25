@@ -1,0 +1,40 @@
+{
+    "name": "spoiler-alert",
+    "title": "SPOILER ALERT!",
+    "description": "jQuery plugin that hides copy and images with a bit of SVG blur. Don't be a spoiler. Taste on mouseover. Eat on click.",
+    "keywords": [
+        "spoiler",
+        "blur",
+        "alert"
+    ],
+    "version": "0.0.1",
+    "author": {
+        "name": "Josh Hull",
+        "url": "http://joshbuddy.github.com/spoiler-alert/authors.txt"
+    },
+    "maintainers": [
+        {
+            "name": "Joshua Hull",
+            "email": "joshbuddy@gmail.com",
+            "url": "https://github.com/joshbuddy"
+        },
+        {
+            "name": "Jared Volpe",
+            "email": "jaredvolpe@gmail.com",
+            "url": "https://github.com/plainspace"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/joshbuddy/spoiler-alert/MIT-LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/joshbuddy/spoiler-alert/issues",
+    "homepage": "http://joshbuddy.github.com/spoiler-alert/",
+    "docs": "https://github.com/joshbuddy/spoiler-alert",
+    "download": "https://github.com/joshbuddy/spoiler-alert/archive/master.zip",
+    "dependencies": {
+        "jquery": ">=1.9"
+    }
+}
