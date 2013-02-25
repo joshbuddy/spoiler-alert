@@ -65,6 +65,7 @@
       applyBlur(currentBlur)
 
       $(this).on('mouseover', function(e) {
+        $spoiler.css('cursor', 'pointer')
         $spoiler.attr('title', hintText)
         if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(partialBlur, -1)
       })
@@ -72,9 +73,17 @@
         if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(maxBlur, 1)
       })
       $(this).on('click', function(e) {
-        $spoiler.data('spoiler-state', $spoiler.data('spoiler-state') == 'shrouded' ? 'revealed' : 'shrouded')
-        $spoiler.attr('title', 'spoiler-state' == 'shrouded' ? hintText : '')
-        $spoiler.data('spoiler-state') == 'shrouded' ? performBlur(partialBlur, 1) : performBlur(0, -1)
+        if ($spoiler.data('spoiler-state') == 'shrouded') {
+          $spoiler.data('spoiler-state', 'revealed')
+          $spoiler.attr('title', '')
+          $spoiler.css('cursor', 'auto')
+          performBlur(0, -1)
+        } else {
+          $spoiler.data('spoiler-state', 'shrouded')
+          $spoiler.attr('title', hintText)
+          $spoiler.css('cursor', 'pointer')
+          performBlur(partialBlur, 1)
+        }
       })
     })
 
