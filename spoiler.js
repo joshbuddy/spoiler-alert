@@ -26,8 +26,9 @@
 
       var applyBlur = function() {
         var radius = maxBlur - step
-        if (browser.msie) {
-          alert("WARNING, this site contains spoilers!")
+        if (browser.msie && ieLessThanTen()) {
+          var filterValue = "progid:DXImageTransform.Microsoft.Blur(pixelradius="+radius+")";
+          $spoiler.css('filter', filterValue);
         } else if (browser.mozilla) {
           var filterValue = radius > 0 ? "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='blur'><feGaussianBlur stdDeviation='" + radius + "' /></filter></svg>#blur\")" : ''
           $spoiler.css('filter', filterValue)
@@ -59,6 +60,19 @@
           animationTimer = setTimeout(shroud, 10)
         }
       }
+
+      // Does the user have IE 9 or less?
+      var ieLessThanTen = function() {
+          // This conditional check will return true if browser supports CANVAS
+          // IE9 and under do not support CANVAS and this function is only ever
+          // called by the IE checking function anyway
+          if(!!document.createElement('canvas').getContext) {
+              return false;
+          } else {
+              return true;
+          }
+      }
+
       applyBlur()
 
       $(this).on('mouseover', function(e) {
