@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SPOILER ALERT!</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="dc.creator" content="Jared Volpe - http://plainspacedesign.com" />
+  <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700|Oxygen:400,700|Montserrat+Subrayada:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="spoiler.js"></script>
+  <script>
+  $(function() {
+    $('spoiler, .spoiler').spoilerAlert()
+  })
+  </script>
+</head>
+<body>
+  <div id="wrap">
+    <div id="header">
+      <h1><a href="index.html">SPOILER ALERT!</a></h1>
+      <p id="subtitle"><strong>Don't spoil it! Hide anything with a bit of SVG blur. Hint on mouseover. Reveal on click.</strong></p>
+    </div>
+
+    <div id="informations">
+      <ul>
+        <li>
+          <div class="group row">
+            <div class="col-1">
+              <h3>Works with images:</h3>
+              <p>This just in ... kittens are just so ...</p>
+              <p><img class="spoiler" src="http://placekitten.com/440/280"></p>
+            </div>
+            <div class="col-2">
+              <h3>Works with copy:</h3>
+              <p>Sharon <spoiler>shoots Adama. It's really tragic. There's so much blood. Haha.</spoiler> Classic Sharon!</p>
+              <p>Sharon <spoiler>Etiam porta sem malesuada magna mollis euismod. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</spoiler> Tellus Dapibus Nibh!</p>
+              <p>Sharon <spoiler>Etiam porta sem malesuada magna mollis euismod. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</spoiler> Porta Sollicitudin Dolor!</p>
+              <p>Sharon <spoiler>Etiam porta sem malesuada magna mollis euismod. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras egestas eget quam.</spoiler> Porta Sollicitudin Dolor!</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="group row">
+            <div class="col-1">
+              <p>Spoiler Alert! lets you hide things that your visitors might not want to see right away.</p>
+              <p>To make your site spoiler free simply include spoiler.js, then, add this somewhere:</p>
+            </div>
+            <div class="col-2">
+              <pre><code><span style="color: #e3d796;">$</span> ('spoiler, .spoiler').spoilerAlert()</code></pre>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="group row">
+            <div class="col-1">
+              <p>Spoiler Alert! has been tested in Chrome, Firefox, Safari and Mobile Safari. Let us know if you find any bugs!</p>
+            </div>
+            <div class="col-2 browser">
+              <img class="featurette-image" src="img/browser-icon-chrome.png">
+              <img class="featurette-image" src="img/browser-icon-firefox.png">
+              <img class="featurette-image" src="img/browser-icon-safari.png">
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="group row">
+            <div class="col-1">
+              <p>To control the maximum and partial blurs, you can pass arguments:</p>
+            </div>
+            <div class="col-2">
+              <pre><code><span style="color: #e3d796;">$</span> ('spoiler, .spoiler').spoilerAlert({max: 10, partial: 4})
+              </code></pre>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="group row credits">
+            <p>Spoiler Alert! was created by <a href="https://github.com/joshbuddy">Joshua Hull</a>. Website by <a href="http://plainspacedesign.com">Jared Volpe</a>.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <a href="https://github.com/joshbuddy/spoiler-alert"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+</body>
+</html>
