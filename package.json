@@ -1,0 +1,9 @@
+{
+  "name": "spoiler-alert",
+  "version": "0.0.2",
+  "description": "jQuery plugin that hides copy and images with a bit of SVG blur. Don't be a spoiler. Taste on mouseover. Eat on click.",
+  "license": "MIT",
+  "devDependencies": {
+    "uglify-js": "*"
+  }
+}
