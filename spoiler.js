@@ -1,21 +1,34 @@
 (function( $ ) {
+  var browser = {}
+  browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
+  browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+  browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+  browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+
+  var defaults = {
+    max: 10,
+    partial: 6,
+    hintText: 'Click to reveal completely'
+  }
+
+  var alertShown = false
+
   $.fn.spoilerAlert = function(opts) {
-    if (!opts) opts = {}
-    var maxBlur = opts.max || 10
-    var partialBlur = opts.partial || 6
-
-    var browser = {}
-    browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
-    browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
-    browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
-    browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
-
-    $(this).each(function() {
+    opts = $.extend(defaults, opts || {})
+    var maxBlur = opts.max
+    var partialBlur = opts.partial
+    var hintText = opts.hintText
+    console.log(opts.max)
+    if (!alertShown && browser.msie) {
+      alert("WARNING, this site contains spoilers!")
+      alertShown = true
+    }
+    return this.each(function() {
       var $spoiler = $(this)
-      $spoiler.data('state', 'shrouded')
+      $spoiler.data('spoiler-state', 'shrouded')
 
       var animationTimer = null
-      var step = 0
+      var currentBlur = maxBlur
 
       var cancelTimer = function() {
         if (animationTimer) {
@@ -24,10 +37,10 @@
         }
       }
 
-      var applyBlur = function() {
-        var radius = maxBlur - step
+      var applyBlur = function(radius) {
+        currentBlur = radius
         if (browser.msie) {
-          alert("WARNING, this site contains spoilers!")
+          // do nothing
         } else if (browser.mozilla) {
           var filterValue = radius > 0 ? "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='blur'><feGaussianBlur stdDeviation='" + radius + "' /></filter></svg>#blur\")" : ''
           $spoiler.css('filter', filterValue)
@@ -41,35 +54,36 @@
         }
       }
 
-      var reveal = function() {
+      var performBlur = function(targetBlur, direction) {
         cancelTimer()
-        var finalStep = $spoiler.data('state') == 'shrouded' ? (maxBlur - partialBlur) : maxBlur
-        if (step < finalStep) {
-          step++
-          applyBlur()
-          animationTimer = setTimeout(reveal, 10)
+        if (currentBlur != targetBlur) {
+          applyBlur(currentBlur + direction)
+          animationTimer = setTimeout(function() { performBlur(targetBlur, direction) }, 10)
         }
       }
 
-      var shroud = function() {
-        cancelTimer()
-        if (step > 0) {
-          step--
-          applyBlur()
-          animationTimer = setTimeout(shroud, 10)
-        }
-      }
-      applyBlur()
+      applyBlur(currentBlur)
 
       $(this).on('mouseover', function(e) {
-        if ($spoiler.data('state') == 'shrouded') reveal()
+        $spoiler.css('cursor', 'pointer')
+        $spoiler.attr('title', hintText)
+        if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(partialBlur, -1)
       })
       $(this).on('mouseout', function(e) {
-        if ($spoiler.data('state') == 'shrouded') shroud()
+        if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(maxBlur, 1)
       })
       $(this).on('click', function(e) {
-        $spoiler.data('state', $spoiler.data('state') == 'shrouded' ? 'revealed' : 'shrouded')
-        $spoiler.data('state') == 'shrouded' ? shroud() : reveal()
+        if ($spoiler.data('spoiler-state') == 'shrouded') {
+          $spoiler.data('spoiler-state', 'revealed')
+          $spoiler.attr('title', '')
+          $spoiler.css('cursor', 'auto')
+          performBlur(0, -1)
+        } else {
+          $spoiler.data('spoiler-state', 'shrouded')
+          $spoiler.attr('title', hintText)
+          $spoiler.css('cursor', 'pointer')
+          performBlur(partialBlur, 1)
+        }
       })
     })
 
