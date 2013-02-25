@@ -11,7 +11,8 @@
   <script src="spoiler.js"></script>
   <script>
   $(function() {
-    $('spoiler, .spoiler').spoilerAlert()
+    $('spoiler').spoilerAlert()
+    $('.spoiler').spoilerAlert({max: 20})
   })
   </script>
 </head>
