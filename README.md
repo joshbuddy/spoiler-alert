@@ -1,6 +1,7 @@
 # SPOILER ALERT!
 
 Don't spoil it! Hide copy and images with a bit of SVG blur. Taste on mouseover. Eat on click.
+
 Do you publish spoilers? Do you wish you could have them on your page in a way that wasn't fucking rude? With Spoiler Alert! you can! Hide spoilers with a bit of blur.
 
 ## Usage
