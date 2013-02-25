@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>SPOILER ALERT!</title>
@@ -10,10 +10,10 @@
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="spoiler.js"></script>
   <script>
-  $(function() {
-    $('spoiler').spoilerAlert()
-    $('.spoiler').spoilerAlert({max: 20})
-  })
+      $(function () {
+          $('spoiler').spoilerAlert()
+          $('.spoiler').spoilerAlert({ max: 20 })
+      });
   </script>
 </head>
 <body>
@@ -22,6 +22,16 @@
       <h1><a href="index.html">SPOILER ALERT!</a></h1>
       <p id="subtitle"><strong>Don't spoil it! Hide anything with a bit of blur. Hint on mouseover. Reveal on click.</strong></p>
     </div>
+
+      <svg width="1" height="1" version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+              <filter id="blur">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="2 3" />
+              </filter>
+          </defs>
+      </svg>
 
     <div id="informations">
       <ul>
