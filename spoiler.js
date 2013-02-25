@@ -1,21 +1,26 @@
 (function( $ ) {
+  var browser = {}
+  browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
+  browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+  browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+  browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+
+  var defaults = {
+    max: 10,
+    partial: 6
+  }
+
   $.fn.spoilerAlert = function(opts) {
-    if (!opts) opts = {}
-    var maxBlur = opts.max || 10
-    var partialBlur = opts.partial || 6
-
-    var browser = {}
-    browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
-    browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
-    browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
-    browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
-
-    $(this).each(function() {
+    opts = $.extend(defaults, opts || {})
+    console.log(opts.max)
+    return this.each(function() {
+      var maxBlur = opts.max
+      var partialBlur = opts.partial
       var $spoiler = $(this)
       $spoiler.data('spoiler-state', 'shrouded')
 
       var animationTimer = null
-      var step = 0
+      var currentBlur = maxBlur
 
       var cancelTimer = function() {
         if (animationTimer) {
@@ -24,8 +29,8 @@
         }
       }
 
-      var applyBlur = function() {
-        var radius = maxBlur - step
+      var applyBlur = function(radius) {
+        currentBlur = radius
         if (browser.msie) {
           alert("WARNING, this site contains spoilers!")
         } else if (browser.mozilla) {
@@ -41,35 +46,30 @@
         }
       }
 
-      var reveal = function() {
+      var performBlur = function(targetBlur, direction) {
+        console.log("targetBlur:"+targetBlur+" direction:"+direction)
         cancelTimer()
-        var finalStep = $spoiler.data('spoiler-state') == 'shrouded' ? (maxBlur - partialBlur) : maxBlur
-        if (step < finalStep) {
-          step++
-          applyBlur()
-          animationTimer = setTimeout(reveal, 10)
+        if (currentBlur != targetBlur) {
+          console.log("invoking")
+          applyBlur(currentBlur + direction)
+          animationTimer = setTimeout(function() { performBlur(targetBlur, direction) }, 10)
+        } else {
+          console.log("not invoking")
         }
       }
 
-      var shroud = function() {
-        cancelTimer()
-        if (step > 0) {
-          step--
-          applyBlur()
-          animationTimer = setTimeout(shroud, 10)
-        }
-      }
-      applyBlur()
+      applyBlur(currentBlur)
 
       $(this).on('mouseover', function(e) {
-        if ($spoiler.data('spoiler-state') == 'shrouded') reveal()
+        if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(partialBlur, -1)
       })
       $(this).on('mouseout', function(e) {
-        if ($spoiler.data('spoiler-state') == 'shrouded') shroud()
+        console.log(maxBlur)
+        if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(maxBlur, 1)
       })
       $(this).on('click', function(e) {
         $spoiler.data('spoiler-state', $spoiler.data('spoiler-state') == 'shrouded' ? 'revealed' : 'shrouded')
-        $spoiler.data('spoiler-state') == 'shrouded' ? shroud() : reveal()
+        $spoiler.data('spoiler-state') == 'shrouded' ? performBlur(0, -1) : performBlur(partialBlur, 1)
       })
     })
 
