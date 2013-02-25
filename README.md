@@ -18,7 +18,7 @@ To control the maximum and partial blurs, you can pass arguments:
 $('spoiler, .spoiler').spoilerAlert({max: 10, partial: 4})
 ```
 
-Have fun! Play with it! (but don't go over 10 .. this plugin explicitly does not go to 11)
+Have fun! Play with it!
 
 ## Demo
 
