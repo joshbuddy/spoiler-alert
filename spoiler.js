@@ -11,13 +11,13 @@
     hintText: 'Click to reveal completely'
   }
 
-  var alertShown = false>>>>>>> Stashed changes
+  var alertShown = false
 
   $.fn.spoilerAlert = function(opts) {
+    opts = $.extend(defaults, opts || {})
     var maxBlur = opts.max
     var partialBlur = opts.partial
     var hintText = opts.hintText
-    opts = $.extend(defaults, opts || {})
     console.log(opts.max)
     if (!alertShown && browser.msie) {
       alert("WARNING, this site contains spoilers!")
