@@ -12,7 +12,7 @@
 
     $(this).each(function() {
       var $spoiler = $(this)
-      $spoiler.data('state', 'shrouded')
+      $spoiler.data('spoiler-state', 'shrouded')
 
       var animationTimer = null
       var step = 0
@@ -43,7 +43,7 @@
 
       var reveal = function() {
         cancelTimer()
-        var finalStep = $spoiler.data('state') == 'shrouded' ? (maxBlur - partialBlur) : maxBlur
+        var finalStep = $spoiler.data('spoiler-state') == 'shrouded' ? (maxBlur - partialBlur) : maxBlur
         if (step < finalStep) {
           step++
           applyBlur()
@@ -62,14 +62,14 @@
       applyBlur()
 
       $(this).on('mouseover', function(e) {
-        if ($spoiler.data('state') == 'shrouded') reveal()
+        if ($spoiler.data('spoiler-state') == 'shrouded') reveal()
       })
       $(this).on('mouseout', function(e) {
-        if ($spoiler.data('state') == 'shrouded') shroud()
+        if ($spoiler.data('spoiler-state') == 'shrouded') shroud()
       })
       $(this).on('click', function(e) {
-        $spoiler.data('state', $spoiler.data('state') == 'shrouded' ? 'revealed' : 'shrouded')
-        $spoiler.data('state') == 'shrouded' ? shroud() : reveal()
+        $spoiler.data('spoiler-state', $spoiler.data('spoiler-state') == 'shrouded' ? 'revealed' : 'shrouded')
+        $spoiler.data('spoiler-state') == 'shrouded' ? shroud() : reveal()
       })
     })
 
