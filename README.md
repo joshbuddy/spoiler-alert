@@ -22,9 +22,7 @@ Have fun! Play with it!
 
 ## Demo
 
-You can find some examples [here](http://plainspace.github.com/spoiler-alert/).
-
-Or take a look at [this](http://htmlpreview.github.com/?https://github.com/joshbuddy/spoiler-alert/blob/master/test.html) to see it in action!
+Take a look at [this](http://plainspace.github.com/spoiler-alert/) to see it in action!
 
 ## Tested browsers
 
