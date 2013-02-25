@@ -1,14 +1,19 @@
-(function( $ ) {
+(function ($) {
+  var browser = {}
+  browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
+  browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+  browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+  browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+  browser.msieVer = /msie ([0-9.]+)/.exec(navigator.userAgent.toLowerCase());
+  browser.msieVer =
+    browser.msieVer.length <= 1 ?
+    "" :
+    browser.msieVer[1];
+
   $.fn.spoilerAlert = function(opts) {
     if (!opts) opts = {}
     var maxBlur = opts.max || 10
     var partialBlur = opts.partial || 6
-
-    var browser = {}
-    browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
-    browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
-    browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
-    browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
     $(this).each(function() {
       var $spoiler = $(this)
@@ -27,7 +32,20 @@
       var applyBlur = function() {
         var radius = maxBlur - step
         if (browser.msie) {
-          alert("WARNING, this site contains spoilers!")
+            var adjustment = "-" + radius + "px";
+            $spoiler.css("margin-top", adjustment);
+            $spoiler.css("margin-bottom", radius + "px");
+            $spoiler.css("margin-left", adjustment);
+            $spoiler.css("margin-right", radius + "px");
+
+            var filterValue =
+                !radius ?
+                "" :
+                browser.msieVer == "9.0" ?
+                "progid:DXImageTransform.Microsoft.Blur(pixelradius=" + radius + ")" :
+                "url(filter.svg#blur)";
+            $spoiler.css("display", "inline-block");
+            $spoiler.css("filter", filterValue);
         } else if (browser.mozilla) {
           var filterValue = radius > 0 ? "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='blur'><feGaussianBlur stdDeviation='" + radius + "' /></filter></svg>#blur\")" : ''
           $spoiler.css('filter', filterValue)
