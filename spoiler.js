@@ -68,11 +68,7 @@
         // This conditional check will return true if browser supports CANVAS
         // IE9 and under do not support CANVAS and this function is only ever
         // called by the IE checking function anyway
-        if(!!document.createElement('canvas').getContext) {
-          return false;
-        } else {
-          return true;
-        }
+        return !document.createElement('canvas').getContext
       }
 
       applyBlur(currentBlur)
