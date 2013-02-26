@@ -6,8 +6,8 @@
   browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
   var defaults = {
-    max: 10,
-    partial: 6,
+    max: 4,
+    partial: 2,
     hintText: 'Click to reveal completely'
   }
 
