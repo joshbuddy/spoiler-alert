@@ -1,9 +1,10 @@
 (function( $ ) {
+  var userAgent = navigator.userAgent.toLowerCase();
   var browser = {}
-  browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
-  browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
-  browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
-  browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+  browser.mozilla = /mozilla/.test(userAgent) && !/webkit/.test(userAgent);
+  browser.webkit = /webkit/.test(userAgent);
+  browser.opera = /opera/.test(userAgent);
+  browser.msie = /msie/.test(userAgent);
 
   var defaults = {
     max: 4,
@@ -48,10 +49,10 @@
         } else {
           var filterValue = radius > 0 ? 'blur('+radius+'px)' : ''
           $spoiler.css('filter', filterValue)
-          $spoiler.css('-webkit-filter', filterValue)
-          $spoiler.css('-moz-filter', filterValue)
-          $spoiler.css('-o-filter', filterValue)
-          $spoiler.css('-ms-filter', filterValue)
+            .css('-webkit-filter', filterValue)
+            .css('-moz-filter', filterValue)
+            .css('-o-filter', filterValue)
+            .css('-ms-filter', filterValue)
         }
       }
 
@@ -73,24 +74,24 @@
 
       applyBlur(currentBlur)
 
-      $(this).on('mouseover', function(e) {
+      $spoiler.on('mouseover', function(e) {
         $spoiler.css('cursor', 'pointer')
-        $spoiler.attr('title', hintText)
+          .attr('title', hintText)
         if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(partialBlur, -1)
       })
-      $(this).on('mouseout', function(e) {
+      $spoiler.on('mouseout', function(e) {
         if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(maxBlur, 1)
       })
-      $(this).on('click', function(e) {
+      $spoiler.on('click', function(e) {
         if ($spoiler.data('spoiler-state') == 'shrouded') {
           $spoiler.data('spoiler-state', 'revealed')
-          $spoiler.attr('title', '')
-          $spoiler.css('cursor', 'auto')
+            .attr('title', '')
+            .css('cursor', 'auto')
           performBlur(0, -1)
         } else {
           $spoiler.data('spoiler-state', 'shrouded')
-          $spoiler.attr('title', hintText)
-          $spoiler.css('cursor', 'pointer')
+            .attr('title', hintText)
+            .css('cursor', 'pointer')
           performBlur(partialBlur, 1)
         }
       })
