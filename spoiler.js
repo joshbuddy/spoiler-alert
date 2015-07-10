@@ -12,17 +12,12 @@
     hintText: 'Click to reveal completely'
   }
 
-  var alertShown = false
-
   $.fn.spoilerAlert = function(opts) {
     opts = $.extend(defaults, opts || {})
     var maxBlur = opts.max
     var partialBlur = opts.partial
     var hintText = opts.hintText
-    if (!alertShown && browser.msie) {
-      alert("WARNING, this site contains spoilers!")
-      alertShown = true
-    }
+    
     return this.each(function() {
       var $spoiler = $(this)
       $spoiler.data('spoiler-state', 'shrouded')
