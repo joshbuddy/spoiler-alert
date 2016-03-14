@@ -45,17 +45,17 @@
               <p>To make your site spoiler free, simply include spoiler.js.<br>Then, add this somewhere:</p>
             </div>
             <div class="col-2">
-              <pre><code><span style="color: #e3d796;">$</span> ('spoiler, .spoiler').spoilerAlert()</code></pre>
+              <pre><code>spoilerAlert('spoiler, .spoiler');</code></pre>
             </div>
           </div>
         </li>
         <li>
           <div class="group row">
             <div class="col-1">
-              <p>To control the maximum and partial blurs, you can pass arguments:</p>
+              <p>To control the maximum and partial blurs, you can pass in options:</p>
             </div>
             <div class="col-2">
-              <pre><code><span style="color: #e3d796;">$</span> ('spoiler, .spoiler').spoilerAlert({max: 10, partial: 4})</code></pre>
+              <pre><code>spoilerAlert('spoiler, .spoiler', {max: 10, partial: 4});</code></pre>
             </div>
           </div>
         </li>
