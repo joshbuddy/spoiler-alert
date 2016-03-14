@@ -9,13 +9,13 @@ Do you publish spoilers? Do you wish you could have them on your page in a way t
 To make your site spoiler free, simply include spoiler.js, then, add this somewhere:
 
 ```javascript
-$('spoiler, .spoiler').spoilerAlert()
+spoilerAlert('spoiler, .spoiler');
 ```
 
 To control the maximum and partial blurs, you can pass arguments:
 
 ```javascript
-$('spoiler, .spoiler').spoilerAlert({max: 10, partial: 4})
+spoilerAlert('spoiler, .spoiler', {max: 10, partial: 4});
 ```
 
 Have fun! Play with it!
