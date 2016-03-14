@@ -1,91 +1,84 @@
-(function( $ ) {
-  var browser = {}
-  browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
-  browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
-  browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
-  browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+(function() {
+  if (typeof Object.assign != 'function') {
+    (function () {
+      Object.assign = function (target) {
+        'use strict';
+        if (target === undefined || target === null) {
+          throw new TypeError('Cannot convert undefined or null to object');
+        }
 
-  var defaults = {
-    max: 4,
-    partial: 2,
-    hintText: 'Click to reveal completely'
+        var output = Object(target);
+        for (var index = 1; index < arguments.length; index++) {
+          var source = arguments[index];
+          if (source !== undefined && source !== null) {
+            for (var nextKey in source) {
+              if (source.hasOwnProperty(nextKey)) {
+                output[nextKey] = source[nextKey];
+              }
+            }
+          }
+        }
+        return output;
+      };
+    })();
   }
 
-  var alertShown = false
+  window.spoilerAlert = function(selector, opts) {
+    var elements = document.querySelectorAll(selector);
+    var defaults = {
+      max: 4,
+      partial: 2,
+      hintText: 'Click to reveal completely'
+    };
 
-  $.fn.spoilerAlert = function(opts) {
-    opts = $.extend(defaults, opts || {})
-    var maxBlur = opts.max
-    var partialBlur = opts.partial
-    var hintText = opts.hintText
-    console.log(opts.max)
-    if (!alertShown && browser.msie) {
-      alert("WARNING, this site contains spoilers!")
-      alertShown = true
-    }
-    return this.each(function() {
-      var $spoiler = $(this)
-      $spoiler.data('spoiler-state', 'shrouded')
+    opts = Object.assign(defaults, opts || {});
 
-      var animationTimer = null
-      var currentBlur = maxBlur
+    var maxBlur = opts.max;
+    var partialBlur = opts.partial;
+    var hintText = opts.hintText;
 
-      var cancelTimer = function() {
-        if (animationTimer) {
-          clearTimeout(animationTimer)
-          animationTimer = null
-        }
-      }
+    var processElement = function(index) {
+      var el = elements[index];
+      el['data-spoiler-state'] = 'shrouded';
+
+      el.style.webkitTransition = '-webkit-filter 250ms';
+      el.style.transition = 'filter 250ms';
 
       var applyBlur = function(radius) {
-        currentBlur = radius
-        if (browser.msie) {
-          // do nothing
-        } else if (browser.mozilla) {
-          var filterValue = radius > 0 ? "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='blur'><feGaussianBlur stdDeviation='" + radius + "' /></filter></svg>#blur\")" : ''
-          $spoiler.css('filter', filterValue)
-        } else {
-          var filterValue = radius > 0 ? 'blur('+radius+'px)' : ''
-          $spoiler.css('filter', filterValue)
-          $spoiler.css('-webkit-filter', filterValue)
-          $spoiler.css('-moz-filter', filterValue)
-          $spoiler.css('-o-filter', filterValue)
-          $spoiler.css('-ms-filter', filterValue)
-        }
+        el.style.filter = 'blur('+radius+'px)';
+        el.style.webkitFilter = 'blur('+radius+'px)';
       }
 
-      var performBlur = function(targetBlur, direction) {
-        cancelTimer()
-        if (currentBlur != targetBlur) {
-          applyBlur(currentBlur + direction)
-          animationTimer = setTimeout(function() { performBlur(targetBlur, direction) }, 10)
-        }
-      }
+      applyBlur(maxBlur);
 
-      applyBlur(currentBlur)
+      el.addEventListener('mouseover', function(e) {
+        el.style.pointer = 'Cursor';
+        el.title = hintText;
+        if (el['data-spoiler-state'] === 'shrouded') applyBlur(partialBlur);
+      })
 
-      $(this).on('mouseover', function(e) {
-        $spoiler.css('cursor', 'pointer')
-        $spoiler.attr('title', hintText)
-        if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(partialBlur, -1)
+      el.addEventListener('mouseout', function(e) {
+        el.title = hintText;
+        if (el['data-spoiler-state'] === 'shrouded') applyBlur(maxBlur);
       })
-      $(this).on('mouseout', function(e) {
-        if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(maxBlur, 1)
-      })
-      $(this).on('click', function(e) {
-        if ($spoiler.data('spoiler-state') == 'shrouded') {
-          $spoiler.data('spoiler-state', 'revealed')
-          $spoiler.attr('title', '')
-          $spoiler.css('cursor', 'auto')
-          performBlur(0, -1)
-        } else {
-          $spoiler.data('spoiler-state', 'shrouded')
-          $spoiler.attr('title', hintText)
-          $spoiler.css('cursor', 'pointer')
-          performBlur(partialBlur, 1)
+
+      el.addEventListener('click', function(e) {
+        switch(el['data-spoiler-state']) {
+          case 'shrouded':
+            el['data-spoiler-state'] = 'revealed';
+            el.title = '';
+            el.style.cursor = 'auto';
+            applyBlur(0);
+            break;
+          default:
+            el['data-spoiler-state'] = 'shrouded';
+            el.title = hintText;
+            el.style.cursor = 'pointer';
+            applyBlur(maxBlur);
         }
       })
-    })
+    }
 
-  };
-})( jQuery );
+    for (var i = 0; i !== elements.length; i++) processElement(i);
+  }
+})();

@@ -6,13 +6,12 @@
   <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" />
   <link href='//fonts.googleapis.com/css?family=Ubuntu:400,700|Oxygen:400,700|Montserrat+Subrayada:400,700' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
-  <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="spoiler.js"></script>
   <script>
-  $(function() {
-    $('spoiler').spoilerAlert()
-    $('.spoiler').spoilerAlert({max: 20, partial: 6})
-  })
+    document.addEventListener("DOMContentLoaded", function(event) {
+      spoilerAlert('spoiler');
+      spoilerAlert('.spoiler', {max: 20, partial: 6});
+    });
   </script>
 </head>
 <body>
