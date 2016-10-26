@@ -1,5 +1,5 @@
 (function() {
-  if (typeof Object.assign != 'function') {
+  if (typeof Object.assign !== 'function') {
     (function () {
       Object.assign = function (target) {
         'use strict';
@@ -45,40 +45,46 @@
       el.style.transition = 'filter 250ms';
 
       var applyBlur = function(radius) {
-        el.style.filter = 'blur('+radius+'px)';
-        el.style.webkitFilter = 'blur('+radius+'px)';
+        el.style.filter = 'blur(' + radius + 'px)';
+        el.style.webkitFilter = 'blur(' + radius + 'px)';
       }
 
       applyBlur(maxBlur);
 
-      el.addEventListener('mouseover', function(e) {
+      el.addEventListener('mouseover', function() {
         el.style.pointer = 'Cursor';
         el.title = hintText;
-        if (el['data-spoiler-state'] === 'shrouded') applyBlur(partialBlur);
+        if (el['data-spoiler-state'] === 'shrouded') {
+          applyBlur(partialBlur);
+        }
       })
 
-      el.addEventListener('mouseout', function(e) {
+      el.addEventListener('mouseout', function() {
         el.title = hintText;
-        if (el['data-spoiler-state'] === 'shrouded') applyBlur(maxBlur);
+        if (el['data-spoiler-state'] === 'shrouded') {
+          applyBlur(maxBlur);
+        }
       })
 
-      el.addEventListener('click', function(e) {
+      el.addEventListener('click', function() {
         switch(el['data-spoiler-state']) {
-          case 'shrouded':
-            el['data-spoiler-state'] = 'revealed';
-            el.title = '';
-            el.style.cursor = 'auto';
-            applyBlur(0);
-            break;
-          default:
-            el['data-spoiler-state'] = 'shrouded';
-            el.title = hintText;
-            el.style.cursor = 'pointer';
-            applyBlur(maxBlur);
+        case 'shrouded':
+          el['data-spoiler-state'] = 'revealed';
+          el.title = '';
+          el.style.cursor = 'auto';
+          applyBlur(0);
+          break;
+        default:
+          el['data-spoiler-state'] = 'shrouded';
+          el.title = hintText;
+          el.style.cursor = 'pointer';
+          applyBlur(maxBlur);
         }
       })
     }
 
-    for (var i = 0; i !== elements.length; i++) processElement(i);
+    for (var i = 0; i !== elements.length; i++) {
+      processElement(i);
+    }
   }
 })();
