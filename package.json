@@ -4,6 +4,7 @@
   "description": "A bit of javascript that hides copy and images with a bit of SVG blur. Don't be a spoiler. Taste on mouseover. Eat on click.",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^3.8.1",
     "uglify-js": "*"
   }
 }
