@@ -31,7 +31,7 @@ spoilerAlert('spoiler, .spoiler', {
 });
 ```
 
-See the [example](examples/index.html) for details.
+See the `example/` for details.
 
 ## API
 
