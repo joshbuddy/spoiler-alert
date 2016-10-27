@@ -23,6 +23,19 @@
     })();
   }
 
+  /**
+   * Detect support for CSS Filters.
+   * From: https://github.com/Modernizr/Modernizr/blob/master/feature-detects/css/filters.js
+   * @return {boolean}
+   */
+  function areCSSFiltersSupported() {
+    var el = createElement('a');
+    el.style.cssText = prefixes.join('filter:blur(2px); ');
+    return !!el.style.length && ((document.documentMode === undefined || document.documentMode > 9));
+  }
+
+  var cssFilterSupport = areCSSFiltersSupported();
+
   window.spoilerAlert = function(selector, opts) {
     var elements = document.querySelectorAll(selector);
     var defaults = {
