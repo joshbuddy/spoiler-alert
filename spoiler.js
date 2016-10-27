@@ -24,13 +24,23 @@
   }
 
   /**
+   * Converts rgb color to rgba
+   * @param  {string} rgb
+   * @param  {number} opacity Opacity, between 0 and 1
+   * @return {string}         Color converted to rgba
+   */
+  function rgbToRgba(rgb, opacity) {
+    return 'rgba(' + rgb.match(/\((.*)\)/)[1] + ', ' + opacity + ')';
+  }
+
+  /**
    * Detect support for CSS Filters.
    * From: https://github.com/Modernizr/Modernizr/blob/master/feature-detects/css/filters.js
    * @return {boolean}
    */
   function areCSSFiltersSupported() {
-    var el = createElement('a');
-    el.style.cssText = prefixes.join('filter:blur(2px); ');
+    var el = document.createElement('a');
+    el.style.cssText = 'filter:blur(2px); ';
     return !!el.style.length && ((document.documentMode === undefined || document.documentMode > 9));
   }
 
@@ -53,13 +63,31 @@
     var processElement = function(index) {
       var el = elements[index];
       el['data-spoiler-state'] = 'shrouded';
+      el['data-original-color'] = window.getComputedStyle(el).getPropertyValue('color');
 
-      el.style.webkitTransition = '-webkit-filter 250ms';
-      el.style.transition = 'filter 250ms';
+      if(cssFilterSupport) {
+        el.style.webkitTransition = '-webkit-filter 250ms';
+        el.style.transition = 'filter 250ms';
+      } else {
+        el.style.color = 'transparent';
+        var rgbaColor = rgbToRgba(el['data-original-color'], 0.5);
+        el.style.textShadow = '0 0 5px ' + rgbaColor;
+      }
 
       var applyBlur = function(radius) {
-        el.style.filter = 'blur('+radius+'px)';
-        el.style.webkitFilter = 'blur('+radius+'px)';
+        if(cssFilterSupport) {
+          el.style.filter = 'blur('+radius+'px)';
+          el.style.webkitFilter = 'blur('+radius+'px)';
+        } else {
+          if(radius === 0) {
+            el.style.color = el['data-original-color'];
+          } else if(radius === maxBlur) {
+            el.style.color = 'transparent';
+          }
+
+          var rgbaColor = rgbToRgba(el['data-original-color'], 0.5);
+          el.style.textShadow = '0 0 ' + radius * 2 + 'px ' + rgbaColor;
+        }
       }
 
       applyBlur(maxBlur);
